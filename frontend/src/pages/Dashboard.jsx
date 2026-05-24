@@ -1,24 +1,43 @@
 import { useState, useEffect } from 'react';
 import api from '../services/api';
 import { motion } from 'framer-motion';
-import { 
-  Truck, AlertTriangle, CheckCircle2, Clock, 
-  TrendingUp, Activity, Package
-} from 'lucide-react';
+import { Truck, AlertTriangle, Clock, TrendingUp, Activity, Package } from 'lucide-react';
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
 
-const StatCard = ({ title, value, icon: Icon, color, delay }) => (
+const statColorClasses = {
+  primary: {
+    glow: 'bg-primary/20 group-hover:bg-primary/30',
+    icon: 'bg-primary/10 text-primary',
+  },
+  accent: {
+    glow: 'bg-accent/20 group-hover:bg-accent/30',
+    icon: 'bg-accent/10 text-accent',
+  },
+  warning: {
+    glow: 'bg-warning/20 group-hover:bg-warning/30',
+    icon: 'bg-warning/10 text-warning',
+  },
+  danger: {
+    glow: 'bg-danger/20 group-hover:bg-danger/30',
+    icon: 'bg-danger/10 text-danger',
+  },
+};
+
+const StatCard = ({ title, value, icon: Icon, color, delay }) => {
+  const classes = statColorClasses[color] || statColorClasses.primary;
+
+  return (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay }}
     className="card card-hover relative overflow-hidden group"
   >
-    <div className={`absolute -right-6 -top-6 w-32 h-32 rounded-full bg-${color}/20 blur-3xl group-hover:bg-${color}/30 transition-all duration-500`}></div>
+    <div className={`absolute -right-6 -top-6 w-32 h-32 rounded-full ${classes.glow} blur-3xl transition-all duration-500`}></div>
     <div className="flex justify-between items-start mb-4 relative z-10">
-      <div className={`p-2 rounded-lg bg-${color}/10 text-${color}`}>
+      <div className={`p-2 rounded-lg ${classes.icon}`}>
         <Icon size={20} />
       </div>
       <div className={`flex items-center gap-1 text-xs font-medium text-success`}>
@@ -31,7 +50,8 @@ const StatCard = ({ title, value, icon: Icon, color, delay }) => (
       <p className="text-sm font-medium text-muted">{title}</p>
     </div>
   </motion.div>
-);
+  );
+};
 
 const Dashboard = () => {
   const [data, setData] = useState(null);
@@ -76,12 +96,12 @@ const Dashboard = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-end mb-6">
+      <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end gap-4 mb-6">
         <div>
           <h1 className="text-2xl font-bold text-white mb-1">Operational Overview</h1>
           <p className="text-sm text-muted">Real-time logistics and dispatch monitoring</p>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
           <label className="flex items-center gap-2 cursor-pointer">
             <span className="text-sm font-medium text-muted">Live Mode</span>
             <div className="relative">
@@ -165,7 +185,7 @@ const Dashboard = () => {
                   <p className="text-sm text-white mb-0.5">{activity.action}</p>
                   <div className="flex gap-2 text-xs text-muted">
                     <span>{new Date(activity.timestamp).toLocaleString()}</span>
-                    <span>Ã¢â‚¬Â¢</span>
+                    <span>-</span>
                     <span>{activity.performedBy?.name || 'System'}</span>
                   </div>
                 </div>

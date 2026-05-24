@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../context/authContextValue';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Truck, ArrowLeft, Quote } from 'lucide-react';
@@ -16,7 +16,7 @@ const Login = () => {
     try {
       await login(email, password);
       navigate('/dashboard');
-    } catch (err) {
+    } catch {
       setError('Invalid email or password');
     }
   };
@@ -104,7 +104,7 @@ const Login = () => {
                 <label className="block text-sm font-bold text-gray-700">Password</label>
                 <a href="#" className="text-xs font-semibold text-[#FF6B00] hover:text-orange-700">Forgot password?</a>
               </div>
-              <input type="password" className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:border-[#FF6B00] focus:ring-2 focus:ring-[#FF6B00]/20 transition-all outline-none text-gray-900" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="••••••••" />
+              <input type="password" className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:border-[#FF6B00] focus:ring-2 focus:ring-[#FF6B00]/20 transition-all outline-none text-gray-900" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="Password" />
             </div>
             <button type="submit" className="w-full py-4 mt-2 bg-[#FF6B00] hover:bg-orange-600 text-white font-bold rounded-xl shadow-lg shadow-orange-200 transition-all hover:-translate-y-px text-lg">
               Authenticate

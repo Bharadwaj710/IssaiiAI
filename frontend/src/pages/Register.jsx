@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../context/authContextValue';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Truck, Activity, Shield, ArrowLeft } from 'lucide-react';
@@ -123,7 +123,7 @@ const Register = () => {
               </div>
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-1.5">Password</label>
-                <input type="password" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#FF6B00] focus:ring-2 focus:ring-[#FF6B00]/20 transition-all outline-none text-gray-900" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="••••••••" />
+                <input type="password" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#FF6B00] focus:ring-2 focus:ring-[#FF6B00]/20 transition-all outline-none text-gray-900" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="Password" />
               </div>
             </div>
             <button type="submit" className="w-full py-3.5 mt-4 bg-[#FF6B00] hover:bg-orange-600 text-white font-bold rounded-xl shadow-lg shadow-orange-200 transition-all hover:-translate-y-px">

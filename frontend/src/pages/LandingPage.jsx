@@ -2,12 +2,12 @@ import { motion } from 'framer-motion';
 import { 
   Truck, ArrowRight, MapPin, BarChart3, CheckCircle2, 
   Package, Activity, Users, Zap, Shield, TrendingUp,
-  ChevronDown, Menu, X
+  Menu, X
 } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-// ─── Floating Shipment Status Card ───────────────────────────────────────────
+// --------- Floating Shipment Status Card ---------------------------------------------------------------------------------------------------------------------------------
 const ShipmentStatusCard = () => (
   <motion.div
     initial={{ opacity: 0, y: -20 }}
@@ -32,12 +32,12 @@ const ShipmentStatusCard = () => (
     </div>
     <p className="text-xs text-gray-500 flex items-center gap-1">
       <MapPin size={10} className="text-gray-400" />
-      Shanghai → Berlin
+      Shanghai to Berlin
     </p>
   </motion.div>
 );
 
-// ─── On-Time Delivery Card ────────────────────────────────────────────────────
+// --------- On-Time Delivery Card ------------------------------------------------------------------------------------------------------------------------------------------------------------
 const DeliveryCard = () => (
   <motion.div
     initial={{ opacity: 0, x: 20 }}
@@ -67,7 +67,7 @@ const DeliveryCard = () => (
   </motion.div>
 );
 
-// ─── Active Fleet Card ────────────────────────────────────────────────────────
+// --------- Active Fleet Card ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 const FleetCard = () => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
@@ -94,7 +94,7 @@ const FleetCard = () => (
   </motion.div>
 );
 
-// ─── Dot Grid Background ──────────────────────────────────────────────────────
+// --------- Dot Grid Background ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 const DotGrid = () => (
   <svg className="absolute inset-0 w-full h-full opacity-20" xmlns="http://www.w3.org/2000/svg">
     <defs>
@@ -106,7 +106,7 @@ const DotGrid = () => (
   </svg>
 );
 
-// ─── Map Pin Component ────────────────────────────────────────────────────────
+// --------- Map Pin Component ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 const MapPinIcon = ({ x, y, delay }) => (
   <motion.svg width="24" height="24" viewBox="0 0 24 24" 
     initial={{ opacity: 0, scale: 0 }}
@@ -119,7 +119,7 @@ const MapPinIcon = ({ x, y, delay }) => (
   </motion.svg>
 );
 
-// ─── Route Lines ──────────────────────────────────────────────────────────────
+// --------- Route Lines ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 const RouteLines = () => (
   <div className="absolute inset-0 w-full h-full pointer-events-none z-30">
     <svg className="w-full h-full drop-shadow-sm" viewBox="0 0 1000 1000" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
@@ -152,7 +152,7 @@ const RouteLines = () => (
   </div>
 );
 
-// ─── Navbar ───────────────────────────────────────────────────────────────────
+// --------- Navbar ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -213,7 +213,7 @@ const Navbar = () => {
   );
 };
 
-// ─── Hero Section ─────────────────────────────────────────────────────────────
+// --------- Hero Section ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 const HeroSection = () => {
   return (
     <section className="relative pt-16 min-h-screen bg-white overflow-hidden">
@@ -228,7 +228,7 @@ const HeroSection = () => {
       <div className="relative max-w-7xl mx-auto px-5 lg:px-8 pt-14 lg:pt-20 pb-8 lg:pb-0
         grid grid-cols-1 lg:grid-cols-2 gap-0 items-center min-h-[calc(100vh-64px)]">
 
-        {/* ── LEFT SIDE ── */}
+        {/* ------ LEFT SIDE ------ */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -312,7 +312,7 @@ const HeroSection = () => {
           </motion.div>
         </motion.div>
 
-        {/* ── RIGHT SIDE — Truck Visual ── */}
+        {/* ------ RIGHT SIDE --- Truck Visual ------ */}
         <div className="relative z-20 h-[480px] lg:h-[calc(100vh-64px)] w-full flex items-center justify-center lg:justify-end lg:pr-8">
 
           {/* Route Lines overlayed correctly over the truck */}
@@ -325,7 +325,7 @@ const HeroSection = () => {
             <FleetCard />
           </div>
 
-          {/* Truck image — large, immersive, extends out */}
+          {/* Truck image --- large, immersive, extends out */}
           <motion.div
             initial={{ opacity: 0, x: 40, scale: 0.97 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
@@ -352,7 +352,7 @@ const HeroSection = () => {
   );
 };
 
-// ─── Partner Logos Strip ──────────────────────────────────────────────────────
+// --------- Partner Logos Strip ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 const PartnersStrip = () => {
   const partners = ['MAERSK', 'DHL', 'FedEx', 'CMA CGM', 'KUEHNE+NAGEL', 'DB SCHENKER'];
   const colors = ['#42A5F5', '#FFCC00', '#4D148C', '#003591', '#009B77', '#CC0000'];
@@ -381,7 +381,7 @@ const PartnersStrip = () => {
   );
 };
 
-// ─── Why OpsPulse Section ─────────────────────────────────────────────────────
+// --------- Why OpsPulse Section ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 const WhyOpsPulse = () => {
   const features = [
     { icon: MapPin, title: 'Fleet Monitoring', desc: 'Real-time visibility into vehicle locations, status, fuel levels, and predictive wear-and-tear analytics.' },
@@ -429,7 +429,7 @@ const WhyOpsPulse = () => {
   );
 };
 
-// ─── CTA Section ──────────────────────────────────────────────────────────────
+// --------- CTA Section ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 const CTASection = () => (
   <section className="py-20 bg-white border-t border-gray-100">
     <div className="max-w-4xl mx-auto px-5 lg:px-8 text-center">
@@ -456,7 +456,7 @@ const CTASection = () => (
   </section>
 );
 
-// ─── Footer ───────────────────────────────────────────────────────────────────
+// --------- Footer ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 const Footer = () => (
   <footer className="bg-gray-50 border-t border-gray-100 pt-14 pb-8">
     <div className="max-w-7xl mx-auto px-5 lg:px-8">
@@ -488,7 +488,7 @@ const Footer = () => (
         ))}
       </div>
       <div className="border-t border-gray-200 pt-6 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-gray-400">
-        <p>© 2026 OpsPulse Operations System. All rights reserved.</p>
+        <p>Copyright 2026 OpsPulse Operations System. All rights reserved.</p>
         <div className="flex gap-5">
           <a href="#" className="hover:text-gray-700 transition-colors">Privacy Policy</a>
           <a href="#" className="hover:text-gray-700 transition-colors">Terms of Service</a>
@@ -499,7 +499,7 @@ const Footer = () => (
   </footer>
 );
 
-// ─── Dashboard Preview Section ────────────────────────────────────────────────
+// --------- Dashboard Preview Section ------------------------------------------------------------------------------------------------------------------------------------------------
 const DashboardPreviewSection = () => {
   const features = [
     { icon: Activity, title: 'Real-time Analytics', desc: 'Monitor KPIs, delivery success rates, and fleet performance with live interactive charts.' },
@@ -525,7 +525,7 @@ const DashboardPreviewSection = () => {
               Everything you need in <span className="text-[#FF6B00]">one dashboard.</span>
             </h2>
             <p className="text-lg text-gray-500 mb-10 leading-relaxed">
-              We analyzed the core workflows of modern logistics teams—from dispatching to analytics—and built a unified interface that eliminates tool fatigue.
+              We analyzed the core workflows of modern logistics teams, from dispatching to analytics, and built a unified interface that eliminates tool fatigue.
             </p>
             
             <div className="space-y-8">
@@ -585,7 +585,7 @@ const DashboardPreviewSection = () => {
   );
 };
 
-// ─── Real World Use Cases ─────────────────────────────────────────────────────
+// --------- Real World Use Cases ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 const UseCasesSection = () => {
   const cases = [
     { title: 'Manufacturing Plants', desc: 'Synchronize inbound raw materials with assembly line schedules to minimize warehouse holding times.' },
@@ -623,7 +623,7 @@ const UseCasesSection = () => {
   );
 };
 
-// ─── Main Landing Page ────────────────────────────────────────────────────────
+// --------- Main Landing Page ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 const LandingPage = () => {
   return (
     <div className="min-h-screen bg-white text-gray-900 overflow-x-hidden">
@@ -640,3 +640,5 @@ const LandingPage = () => {
 };
 
 export default LandingPage;
+
+

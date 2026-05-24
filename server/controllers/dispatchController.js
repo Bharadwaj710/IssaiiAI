@@ -14,7 +14,11 @@ export const getDispatches = async (req, res) => {
 
 export const createDispatch = async (req, res) => {
   try {
-    const dispatch = await Dispatch.create(req.body);
+    const payload = {
+      ...req.body,
+      status: req.body.assignedVehicle ? 'Assigned' : 'Pending',
+    };
+    const dispatch = await Dispatch.create(payload);
     await Activity.create({ action: `Created dispatch: ${dispatch.title}`, performedBy: req.user._id });
     if (dispatch.assignedVehicle) {
       await Vehicle.findByIdAndUpdate(dispatch.assignedVehicle, { status: 'In Transit' });
@@ -49,12 +53,14 @@ export const updateDispatchStatus = async (req, res) => {
 export const reportIncident = async (req, res) => {
   try {
     const { incidentDescription } = req.body;
-    const { category, riskLevel } = analyzeIncident(incidentDescription);
+    const { category, riskLevel, recommendedAction, operationalImpact } = analyzeIncident(incidentDescription);
     
     const dispatch = await Dispatch.findByIdAndUpdate(req.params.id, {
       incidentDescription,
       semanticCategory: category,
       riskLevel,
+      recommendedAction,
+      operationalImpact,
       status: 'Delayed'
     }, { new: true }).populate('assignedVehicle');
     

@@ -24,8 +24,8 @@ const Dispatch = () => {
       ]);
       setDispatches(dRes.data);
       setVehicles(vRes.data.filter(v => v.status === 'Available'));
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -41,7 +41,7 @@ const Dispatch = () => {
       await api.post('/dispatches', newDispatch);
       setShowAddModal(false);
       fetchData();
-    } catch (err) {
+    } catch {
       alert('Failed to create dispatch');
     }
   };
@@ -53,7 +53,7 @@ const Dispatch = () => {
       setShowIncidentModal(false);
       setIncidentText('');
       fetchData();
-    } catch (err) {
+    } catch {
       alert('Failed to report incident');
     }
   };
@@ -62,7 +62,7 @@ const Dispatch = () => {
     try {
       await api.put(`/dispatches/${id}/status`, { status });
       fetchData();
-    } catch (err) {
+    } catch {
       alert('Failed to update status');
     }
   };
@@ -71,7 +71,7 @@ const Dispatch = () => {
 
   return (
     <div className="space-y-6">
-      <div className="card flex justify-between items-center mb-4">
+      <div className="card flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-4">
         <div>
           <h1 className="text-2xl font-bold text-white mb-1">Dispatch Workflow</h1>
           <p className="text-sm text-muted">Manage routes and operational intelligence</p>
@@ -81,7 +81,7 @@ const Dispatch = () => {
         </button>
       </div>
 
-      <div className="card !p-0 overflow-hidden">
+      <div className="card !p-0 overflow-x-auto">
         <table className="w-full text-left text-sm text-text">
           <thead className="bg-[#0B0F19] text-muted uppercase text-xs border-b border-borderline font-semibold">
             <tr>
@@ -118,11 +118,23 @@ const Dispatch = () => {
                         <AlertCircle size={12} /> {d.semanticCategory}
                       </span>
                       <span className="text-[10px] bg-[#0B0F19] px-2 py-0.5 rounded w-max text-muted border border-borderline shadow-sm">Risk: {d.riskLevel}</span>
+                      {d.recommendedAction && (
+                        <span className="text-[11px] text-muted max-w-xs">{d.recommendedAction}</span>
+                      )}
                     </div>
                   ) : <span className="text-xs text-muted">No issues</span>}
                 </td>
                 <td className="px-6 py-4 text-right">
                   <div className="flex justify-end gap-2">
+                    {d.status === 'Assigned' && (
+                      <button
+                        onClick={() => updateStatus(d._id, 'In Transit')}
+                        className="px-2 py-1.5 bg-primary/10 text-primary hover:bg-primary hover:text-white rounded transition text-xs font-semibold"
+                        title="Start Transit"
+                      >
+                        Start
+                      </button>
+                    )}
                     {d.status !== 'Delivered' && (
                       <button 
                         onClick={() => updateStatus(d._id, 'Delivered')}

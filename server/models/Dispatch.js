@@ -10,7 +10,9 @@ const dispatchSchema = new mongoose.Schema({
   expectedDelivery: { type: Date, required: true },
   incidentDescription: { type: String },
   semanticCategory: { type: String },
-  riskLevel: { type: String }
+  riskLevel: { type: String },
+  recommendedAction: { type: String },
+  operationalImpact: { type: String }
 }, { timestamps: true });
 
 export default mongoose.model('Dispatch', dispatchSchema);

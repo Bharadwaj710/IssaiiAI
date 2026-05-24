@@ -9,6 +9,8 @@ jspm_packages/
 .env.test.local
 .env.production.local
 .env.*
+!.env.example
+!**/.env.example
 
 # Build outputs
 dist/

@@ -1,70 +1,148 @@
-# OpsPulse — Intelligent Manufacturing Transport & Operations Platform
+# OpsPulse - Intelligent Manufacturing Operations Platform
 
-OpsPulse is a modern MERN stack operational intelligence dashboard designed for manufacturing companies. It provides comprehensive tools for managing transport operations, fleet dispatch workflows, operational incidents, and logistics analytics.
+OpsPulse is a MERN stack operations platform for manufacturing logistics teams. It centralizes fleet visibility, dispatch coordination, incident reporting, and operational analytics that would otherwise be scattered across spreadsheets, chat groups, and manual tracking.
+
+## Demo Login
+
+Use these credentials after running the seed script:
+
+```txt
+Email: demo@opspulse.com
+Password: OpsPulse@123
+```
+
+## Screenshots
+
+Landing page assets and the dashboard preview are stored in `frontend/public`.
+
+![OpsPulse dashboard preview](frontend/public/dashboard-mockup.png)
+
+## Core Features
+
+- JWT authentication with bcrypt password hashing.
+- Protected dashboard, fleet, dispatch, and analytics routes.
+- Fleet management with vehicle status, fuel level, capacity, driver, and wear metrics.
+- Dispatch workflow with assignment, in-transit, delayed, and delivered states.
+- Incident intelligence that categorizes reports, assigns risk, and suggests operational actions.
+- Dashboard metrics, delivery trend chart, and live activity feed.
+- Analytics view with delivery performance, incident distribution, and CSV export.
+- Demo seed data for recruiter review and deployment smoke testing.
+- Responsive dashboard shell with mobile navigation.
 
 ## Tech Stack
 
-- **Frontend**: React, Vite, Tailwind CSS, React Router DOM, Axios, Framer Motion, Recharts, Lucide React
-- **Backend**: Node.js, Express.js, MongoDB Atlas, Mongoose, JWT Authentication, bcryptjs
+- Frontend: React, Vite, Tailwind CSS, React Router, Axios, Framer Motion, Recharts, Lucide React
+- Backend: Node.js, Express, MongoDB, Mongoose, JWT, bcryptjs
 
-## Key Features
+## Project Structure
 
-- **Authentication Module**: Secure JWT-based registration and login system with role-based access.
-- **Dashboard Overview**: Operational metrics, analytics charts, recent activities panel, and quick system overview.
-- **Fleet Management**: Track vehicle status, fuel levels, capacities, and driver assignments.
-- **Dispatch Workflow**: Manage the end-to-end delivery process from dispatch assignment to delivery.
-- **Incident Intelligence**: Semantic categorization of operational issues automatically assessing risk levels and classifying incidents.
-- **Analytics Module**: Visual representation of delivery trends and incident distributions.
-- **Activity Timeline**: A live feed of system activities for complete operational transparency.
+```txt
+OpsPulse/
+  frontend/   Vite React application
+  server/     Express API, MongoDB models, seed script
+```
 
-## Folder Structure
+## Environment Variables
 
-The project is structured as a monorepo with `frontend` and `server` directories:
-
-- `/frontend`: Vite React Application
-- `/server`: Node.js/Express API Server
-
-## Setup Instructions
-
-### 1. Environment Variables
-
-Create a `.env` file in the `/server` directory with the following variables:
+Create `server/.env`:
 
 ```env
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_super_secret_jwt_key
+JWT_SECRET=replace_with_a_long_random_secret
+CLIENT_URL=http://localhost:5173
 ```
 
-### 2. Backend Setup
+Create `frontend/.env`:
+
+```env
+VITE_API_URL=http://localhost:5000/api
+```
+
+Example files are included:
+
+- `server/.env.example`
+- `frontend/.env.example`
+
+## Local Setup
+
+Install and run the backend:
 
 ```bash
 cd server
 npm install
-node index.js
+npm run seed
+npm run start
 ```
-The server will start on `http://localhost:5000`.
 
-### 3. Frontend Setup
+Install and run the frontend:
 
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
-The frontend will start on the port provided by Vite (usually `http://localhost:5173`).
 
-## Deployment
+Open the Vite URL, usually `http://localhost:5173`, and log in with the demo credentials above.
 
-- **Frontend**: Designed to be easily deployed on Vercel. Connect your repository and select Vite as the framework.
-- **Backend**: Designed to be easily deployed on Render. Connect your repository, set the build command to `npm install` inside the server directory, and the start command to `node index.js`. Don't forget to add your environment variables.
+## Useful Scripts
 
-## Intelligent Incident Categorization
+Backend:
 
-The platform features a lightweight semantic keyword-based engine that automatically parses reported incidents. For example, keywords like "fuel" or "engine" trigger a High-Risk Mechanical categorization, while "weather" or "traffic" fall under Medium-Risk Route Delays. This ensures operational dashboards immediately highlight critical bottlenecks without the overhead of heavy third-party AI APIs.
+```bash
+npm run start
+npm run dev
+npm run seed
+```
 
-## Architecture Guidelines
+Frontend:
 
-- Minimal Redux, relying on React Context for Auth state.
-- Component-driven UI with Tailwind for styling.
-- Secure HTTP-only/Bearer Token implementations.
+```bash
+npm run dev
+npm run build
+npm run lint
+```
+
+## API Overview
+
+- `POST /api/auth/register`
+- `POST /api/auth/login`
+- `GET /api/dashboard`
+- `GET /api/vehicles`
+- `POST /api/vehicles`
+- `PUT /api/vehicles/:id`
+- `DELETE /api/vehicles/:id`
+- `GET /api/dispatches`
+- `POST /api/dispatches`
+- `PUT /api/dispatches/:id/status`
+- `POST /api/dispatches/:id/incident`
+
+## Demo Data
+
+`npm run seed` creates:
+
+- one demo manager account
+- six vehicles across available, in-transit, delayed, and maintenance states
+- dispatches across pending, assigned, in-transit, delayed, and delivered states
+- incidents with category, risk level, recommended action, and operational impact
+- live activity feed records
+
+The seed script resets the configured database collections so the dashboard is predictable for assessment review.
+
+## Deployment Notes
+
+Frontend can be deployed to Vercel or Netlify. Set:
+
+```env
+VITE_API_URL=https://your-backend-domain/api
+```
+
+Backend can be deployed to Render, Railway, or similar Node hosts. Set:
+
+```env
+MONGO_URI=your_production_mongo_uri
+JWT_SECRET=your_production_secret
+CLIENT_URL=https://your-frontend-domain
+```
+
+Run `npm run build` in `frontend` before deploying the client and `npm run start` in `server` for the API.

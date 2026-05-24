@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import api from '../services/api';
 import { motion } from 'framer-motion';
-import { Plus, Search, MapPin, Fuel, Package, Settings, AlertTriangle, Truck, Wrench } from 'lucide-react';
+import { Plus, Search, Fuel, Package, Truck, Wrench } from 'lucide-react';
 
 const StatusBadge = ({ status }) => {
   const styles = {
@@ -23,6 +23,7 @@ const Fleet = () => {
   const [loading, setLoading] = useState(true);
   const [showAddModal, setShowAddModal] = useState(false);
   const [newVehicle, setNewVehicle] = useState({ vehicleId: '', driver: '', fuelLevel: '', capacity: '' });
+  const [searchTerm, setSearchTerm] = useState('');
 
   const fetchVehicles = async () => {
     try {
@@ -54,9 +55,14 @@ const Fleet = () => {
 
   if (loading) return <div className="text-white">Loading...</div>;
 
+  const filteredVehicles = vehicles.filter((vehicle) => {
+    const search = searchTerm.toLowerCase();
+    return vehicle.vehicleId.toLowerCase().includes(search) || vehicle.driver.toLowerCase().includes(search);
+  });
+
   return (
     <div className="space-y-6 relative">
-      <div className="card flex justify-between items-center mb-4">
+      <div className="card flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-4">
         <div>
           <h1 className="text-2xl font-bold text-white mb-1">Fleet Management</h1>
           <p className="text-sm text-muted">Monitor and deploy your transport assets</p>
@@ -70,23 +76,25 @@ const Fleet = () => {
         </button>
       </div>
 
-      <div className="flex justify-between items-center mb-4">
-        <div className="relative w-64">
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mb-4">
+        <div className="relative w-full md:w-64">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted" size={18} />
           <input 
             type="text" 
             placeholder="Search vehicles..." 
+            value={searchTerm}
+            onChange={(event) => setSearchTerm(event.target.value)}
             className="w-full bg-card border border-borderline rounded-full pl-11 pr-4 py-2 text-sm focus:outline-none focus:border-primary text-white"
           />
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 overflow-x-auto">
           <button className="px-4 py-1.5 text-sm bg-card border border-borderline rounded-full text-muted hover:bg-[#0B0F19] transition font-medium shadow-sm">All Status</button>
           <button className="px-4 py-1.5 text-sm bg-card border border-borderline rounded-full text-muted hover:bg-[#0B0F19] transition font-medium shadow-sm">Sort by ID</button>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-        {vehicles.map((v, i) => (
+        {filteredVehicles.map((v, i) => (
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}

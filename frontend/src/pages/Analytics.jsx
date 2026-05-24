@@ -54,7 +54,7 @@ const Analytics = () => {
 
   return (
     <div className="space-y-6">
-      <div className="card flex justify-between items-center">
+      <div className="card flex flex-col md:flex-row md:justify-between md:items-center gap-4">
         <div>
           <h1 className="text-2xl font-bold text-white mb-1">Operational Analytics</h1>
           <p className="text-sm text-muted">Deep dive into logistics performance and incident metrics</p>
