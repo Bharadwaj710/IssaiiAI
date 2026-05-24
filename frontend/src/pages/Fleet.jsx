@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import api from '../services/api';
 import { motion } from 'framer-motion';
 import { Plus, Search, MapPin, Fuel, Package, Settings, AlertTriangle, Truck, Wrench } from 'lucide-react';
@@ -12,7 +12,7 @@ const StatusBadge = ({ status }) => {
   };
   
   return (
-    <span className={`px-2.5 py-1 rounded-full text-xs font-medium border ${styles[status] || 'bg-slate-100 text-slate-500 border-slate-200'}`}>
+    <span className={`px-2.5 py-1 rounded-full text-xs font-medium border ${styles[status] || 'bg-card text-muted border-borderline'}`}>
       {status}
     </span>
   );
@@ -52,13 +52,13 @@ const Fleet = () => {
     }
   };
 
-  if (loading) return <div className="text-slate-900">Loading...</div>;
+  if (loading) return <div className="text-white">Loading...</div>;
 
   return (
     <div className="space-y-6 relative">
       <div className="card flex justify-between items-center mb-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 mb-1">Fleet Management</h1>
+          <h1 className="text-2xl font-bold text-white mb-1">Fleet Management</h1>
           <p className="text-sm text-muted">Monitor and deploy your transport assets</p>
         </div>
         <button 
@@ -76,12 +76,12 @@ const Fleet = () => {
           <input 
             type="text" 
             placeholder="Search vehicles..." 
-            className="w-full bg-white border border-slate-200 rounded-full pl-11 pr-4 py-2 text-sm focus:outline-none focus:border-primary text-slate-900"
+            className="w-full bg-card border border-borderline rounded-full pl-11 pr-4 py-2 text-sm focus:outline-none focus:border-primary text-white"
           />
         </div>
         <div className="flex gap-2">
-          <button className="px-4 py-1.5 text-sm bg-white border border-slate-200 rounded-full text-slate-700 hover:bg-slate-50 transition font-medium shadow-sm">All Status</button>
-          <button className="px-4 py-1.5 text-sm bg-white border border-slate-200 rounded-full text-slate-700 hover:bg-slate-50 transition font-medium shadow-sm">Sort by ID</button>
+          <button className="px-4 py-1.5 text-sm bg-card border border-borderline rounded-full text-muted hover:bg-[#0B0F19] transition font-medium shadow-sm">All Status</button>
+          <button className="px-4 py-1.5 text-sm bg-card border border-borderline rounded-full text-muted hover:bg-[#0B0F19] transition font-medium shadow-sm">Sort by ID</button>
         </div>
       </div>
 
@@ -96,11 +96,11 @@ const Fleet = () => {
           >
             <div className="flex justify-between items-start mb-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center border border-indigo-100 group-hover:border-primary/50 transition-colors">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20 group-hover:border-primary/50 transition-colors">
                   <Truck size={20} className="text-primary" />
                 </div>
                 <div>
-                  <h3 className="text-slate-900 font-bold text-lg tracking-tight">{v.vehicleId}</h3>
+                  <h3 className="text-white font-bold text-lg tracking-tight">{v.vehicleId}</h3>
                   <p className="text-xs text-muted font-medium">Operator: {v.driver}</p>
                 </div>
               </div>
@@ -108,31 +108,31 @@ const Fleet = () => {
             </div>
             
             <div className="grid grid-cols-2 gap-4 mt-6">
-              <div className="bg-slate-50 rounded-xl p-3 border border-slate-200">
+              <div className="bg-[#0B0F19] rounded-xl p-3 border border-borderline">
                 <div className="flex items-center gap-2 text-xs text-muted font-medium mb-1">
                   <Fuel size={14} className="text-accent" /> Fuel Level
                 </div>
                 <div className="flex items-end gap-2">
-                  <span className="text-lg font-bold text-slate-900">{v.fuelLevel}%</span>
-                  <div className="flex-1 h-1.5 bg-slate-200 rounded-full mb-1.5 overflow-hidden">
+                  <span className="text-lg font-bold text-white">{v.fuelLevel}%</span>
+                  <div className="flex-1 h-1.5 bg-borderline rounded-full mb-1.5 overflow-hidden">
                     <div className={`h-full ${v.fuelLevel < 20 ? 'bg-danger' : 'bg-accent'}`} style={{ width: `${v.fuelLevel}%` }}></div>
                   </div>
                 </div>
               </div>
-              <div className="bg-slate-50 rounded-xl p-3 border border-slate-200">
+              <div className="bg-[#0B0F19] rounded-xl p-3 border border-borderline">
                 <div className="flex items-center gap-2 text-xs text-muted font-medium mb-1">
                   <Wrench size={14} className={v.wearAndTear >= 80 ? "text-warning" : "text-primary"} /> Wear & Tear
                 </div>
                 <div className="flex items-end gap-2">
-                  <span className={`text-lg font-bold ${v.wearAndTear >= 80 ? "text-warning" : "text-slate-900"}`}>{v.wearAndTear || 0}%</span>
+                  <span className={`text-lg font-bold ${v.wearAndTear >= 80 ? "text-warning" : "text-white"}`}>{v.wearAndTear || 0}%</span>
                   {v.wearAndTear >= 80 && <span className="text-[10px] bg-warning/10 text-warning border border-warning/20 px-1.5 py-0.5 rounded">Service</span>}
                 </div>
               </div>
-              <div className="bg-slate-50 rounded-xl p-3 border border-slate-200">
+              <div className="bg-[#0B0F19] rounded-xl p-3 border border-borderline">
                 <div className="flex items-center gap-2 text-xs text-muted font-medium mb-1">
                   <Package size={14} className="text-primary" /> Capacity
                 </div>
-                <div className="text-lg font-bold text-slate-900">{v.capacity} <span className="text-xs font-normal text-muted">tons</span></div>
+                <div className="text-lg font-bold text-white">{v.capacity} <span className="text-xs font-normal text-muted">tons</span></div>
               </div>
             </div>
           </motion.div>
@@ -143,11 +143,11 @@ const Fleet = () => {
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <motion.div 
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-            className="card bg-white w-full max-w-md shadow-2xl"
+            className="card bg-card w-full max-w-md shadow-2xl"
           >
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-bold text-slate-900">Register New Vehicle</h2>
-              <button onClick={() => setShowAddModal(false)} className="text-muted hover:text-slate-900">&times;</button>
+              <h2 className="text-xl font-bold text-white">Register New Vehicle</h2>
+              <button onClick={() => setShowAddModal(false)} className="text-muted hover:text-white">&times;</button>
             </div>
             <form onSubmit={handleAddVehicle} className="space-y-4">
               <div>

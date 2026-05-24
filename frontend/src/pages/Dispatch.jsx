@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import api from '../services/api';
 import { motion } from 'framer-motion';
 import { Plus, AlertCircle, CheckCircle2, ChevronRight, Navigation } from 'lucide-react';
@@ -73,7 +73,7 @@ const Dispatch = () => {
     <div className="space-y-6">
       <div className="card flex justify-between items-center mb-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 mb-1">Dispatch Workflow</h1>
+          <h1 className="text-2xl font-bold text-white mb-1">Dispatch Workflow</h1>
           <p className="text-sm text-muted">Manage routes and operational intelligence</p>
         </div>
         <button onClick={() => setShowAddModal(true)} className="btn btn-primary gap-2">
@@ -83,7 +83,7 @@ const Dispatch = () => {
 
       <div className="card !p-0 overflow-hidden">
         <table className="w-full text-left text-sm text-text">
-          <thead className="bg-slate-50 text-slate-500 uppercase text-xs border-b border-slate-200 font-semibold">
+          <thead className="bg-[#0B0F19] text-muted uppercase text-xs border-b border-borderline font-semibold">
             <tr>
               <th className="px-6 py-4 font-medium">Route / ID</th>
               <th className="px-6 py-4 font-medium">Vehicle</th>
@@ -92,16 +92,16 @@ const Dispatch = () => {
               <th className="px-6 py-4 font-medium text-right">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-200">
+          <tbody className="divide-y divide-borderline">
             {dispatches.map((d) => (
-              <tr key={d._id} className="hover:bg-slate-50/50 transition-colors">
+              <tr key={d._id} className="hover:bg-[#0B0F19]/50 transition-colors">
                 <td className="px-6 py-4">
-                  <div className="font-semibold text-slate-900 mb-1">{d.title}</div>
+                  <div className="font-semibold text-white mb-1">{d.title}</div>
                   <div className="flex items-center text-xs text-muted gap-2">
                     {d.source} <ChevronRight size={12} className="text-primary"/> {d.destination}
                   </div>
                 </td>
-                <td className="px-6 py-4 font-medium">{d.assignedVehicle?.vehicleId || 'Unassigned'}</td>
+                <td className="px-6 py-4 font-medium text-white">{d.assignedVehicle?.vehicleId || 'Unassigned'}</td>
                 <td className="px-6 py-4">
                   <span className={`px-2 py-1 rounded text-xs font-medium ${
                     d.status === 'Delivered' ? 'bg-success/20 text-success' : 
@@ -117,7 +117,7 @@ const Dispatch = () => {
                       <span className="text-xs font-semibold text-danger flex items-center gap-1">
                         <AlertCircle size={12} /> {d.semanticCategory}
                       </span>
-                      <span className="text-[10px] bg-white px-2 py-0.5 rounded w-max text-muted border border-slate-200 shadow-sm">Risk: {d.riskLevel}</span>
+                      <span className="text-[10px] bg-[#0B0F19] px-2 py-0.5 rounded w-max text-muted border border-borderline shadow-sm">Risk: {d.riskLevel}</span>
                     </div>
                   ) : <span className="text-xs text-muted">No issues</span>}
                 </td>
@@ -126,7 +126,7 @@ const Dispatch = () => {
                     {d.status !== 'Delivered' && (
                       <button 
                         onClick={() => updateStatus(d._id, 'Delivered')}
-                        className="p-1.5 bg-success/10 text-success hover:bg-success hover:text-slate-900 rounded transition"
+                        className="p-1.5 bg-success/10 text-success hover:bg-success hover:text-white rounded transition"
                         title="Mark Delivered"
                       >
                         <CheckCircle2 size={16} />
@@ -135,7 +135,7 @@ const Dispatch = () => {
                     {d.status !== 'Delivered' && (
                       <button 
                         onClick={() => { setSelectedDispatch(d); setShowIncidentModal(true); }}
-                        className="p-1.5 bg-warning/10 text-warning hover:bg-warning hover:text-slate-900 rounded transition"
+                        className="p-1.5 bg-warning/10 text-warning hover:bg-warning hover:text-white rounded transition"
                         title="Report Incident"
                       >
                         <AlertCircle size={16} />
@@ -150,9 +150,9 @@ const Dispatch = () => {
       </div>
 
       {showAddModal && (
-        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="card bg-white w-full max-w-lg shadow-2xl">
-            <h2 className="text-xl font-bold text-slate-900 mb-4">Create Dispatch</h2>
+        <div className="fixed inset-0 bg-[#0B0F19]/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="card bg-card w-full max-w-lg shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+            <h2 className="text-xl font-bold text-white mb-4">Create Dispatch</h2>
             <form onSubmit={handleAddDispatch} className="space-y-4">
               <input required className="input" placeholder="Dispatch Title" onChange={e => setNewDispatch({...newDispatch, title: e.target.value})} />
               <div className="flex items-center gap-3">
@@ -175,8 +175,8 @@ const Dispatch = () => {
       )}
 
       {showIncidentModal && (
-        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="card bg-white w-full max-w-md border-danger/30 border-2 shadow-2xl">
+        <div className="fixed inset-0 bg-[#0B0F19]/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="card bg-card w-full max-w-md border-danger/30 border shadow-[0_20px_50px_rgba(244,63,94,0.15)]">
             <h2 className="text-xl font-bold text-danger mb-2 flex items-center gap-2"><AlertCircle /> Report Incident</h2>
             <p className="text-xs text-muted mb-4">The intelligent engine will automatically categorize this incident and assess risk levels.</p>
             <form onSubmit={handleReportIncident} className="space-y-4">

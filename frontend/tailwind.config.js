@@ -7,16 +7,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: '#f8fafc', // slate-50
-        card: '#ffffff', // white
-        primary: '#6366f1', // indigo-500
-        secondary: '#94a3b8', // slate-400
-        accent: '#06b6d4', // cyan-500
-        success: '#10b981', // emerald-500
-        warning: '#f59e0b', // amber-500
-        danger: '#ef4444', // red-500
-        text: '#0f172a', // slate-900
-        muted: '#64748b', // slate-500
+        background: '#0B0F19', // Deep Navy
+        card: '#111827', // Charcoal / Gray-900
+        primary: '#FF6B00', // Orange
+        secondary: '#1e293b', // Slate-800
+        accent: '#06b6d4', // Cyan
+        success: '#10b981', // Emerald
+        warning: '#f59e0b', // Amber
+        danger: '#ef4444', // Red
+        text: '#ffffff', // White
+        muted: '#9ca3af', // Gray-400
+        borderline: '#1f2937', // Gray-800
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],

@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import api from '../services/api';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer,
@@ -6,7 +6,7 @@ import {
 } from 'recharts';
 import { Download } from 'lucide-react';
 
-const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
+const COLORS = ['#FF6B00', '#06b6d4', '#10b981', '#f59e0b', '#ef4444'];
 
 const Analytics = () => {
   const [data, setData] = useState(null);
@@ -56,32 +56,32 @@ const Analytics = () => {
     <div className="space-y-6">
       <div className="card flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 mb-1">Operational Analytics</h1>
+          <h1 className="text-2xl font-bold text-white mb-1">Operational Analytics</h1>
           <p className="text-sm text-muted">Deep dive into logistics performance and incident metrics</p>
         </div>
-        <button onClick={handleExportCSV} className="btn btn-outline gap-2 text-sm bg-white border-slate-200 hover:bg-slate-50">
+        <button onClick={handleExportCSV} className="btn btn-outline gap-2 text-sm bg-card border-borderline hover:bg-[#0B0F19]">
           <Download size={16} /> Export Report (CSV)
         </button>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="card">
-          <h2 className="text-lg font-semibold text-slate-900 mb-6">Delivery Performance</h2>
+          <h2 className="text-lg font-semibold text-white mb-6">Delivery Performance</h2>
           <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={trendData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
-                <XAxis dataKey="_id" stroke="#64748b" />
-                <YAxis stroke="#64748b" />
-                <RechartsTooltip cursor={{ fill: '#f8fafc', opacity: 0.4 }} contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '8px', color: '#0f172a' }} />
-                <Bar dataKey="count" fill="#6366f1" radius={[4, 4, 0, 0]} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" vertical={false} />
+                <XAxis dataKey="_id" stroke="#9ca3af" />
+                <YAxis stroke="#9ca3af" />
+                <RechartsTooltip cursor={{ fill: '#1f2937', opacity: 0.4 }} contentStyle={{ backgroundColor: '#111827', border: '1px solid #1f2937', borderRadius: '8px', color: '#ffffff' }} />
+                <Bar dataKey="count" fill="#FF6B00" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
 
         <div className="card">
-          <h2 className="text-lg font-semibold text-slate-900 mb-6">Semantic Incident Distribution</h2>
+          <h2 className="text-lg font-semibold text-white mb-6">Semantic Incident Distribution</h2>
           <div className="h-80">
             {incidentData.length > 0 ? (
               <ResponsiveContainer width="100%" height="100%">
@@ -100,8 +100,8 @@ const Analytics = () => {
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
-                  <RechartsTooltip contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '8px', color: '#0f172a' }} />
-                  <Legend verticalAlign="bottom" height={36} iconType="circle" wrapperStyle={{ color: '#64748b' }}/>
+                  <RechartsTooltip contentStyle={{ backgroundColor: '#111827', border: '1px solid #1f2937', borderRadius: '8px', color: '#ffffff' }} />
+                  <Legend verticalAlign="bottom" height={36} iconType="circle" wrapperStyle={{ color: '#9ca3af' }}/>
                 </PieChart>
               </ResponsiveContainer>
             ) : (

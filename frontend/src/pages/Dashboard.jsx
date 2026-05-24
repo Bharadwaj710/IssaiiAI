@@ -27,7 +27,7 @@ const StatCard = ({ title, value, icon: Icon, color, delay }) => (
       </div>
     </div>
     <div className="relative z-10">
-      <h3 className="text-3xl font-bold text-slate-900 mb-1">{value}</h3>
+      <h3 className="text-3xl font-bold text-white mb-1">{value}</h3>
       <p className="text-sm font-medium text-muted">{title}</p>
     </div>
   </motion.div>
@@ -63,13 +63,13 @@ const Dashboard = () => {
 
   if (loading) {
     return <div className="animate-pulse space-y-6">
-      <div className="h-8 bg-slate-200 rounded w-1/4"></div>
+      <div className="h-8 bg-borderline rounded w-1/4"></div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {[1,2,3,4].map(i => <div key={i} className="h-32 bg-slate-200 rounded-xl"></div>)}
+        {[1,2,3,4].map(i => <div key={i} className="h-32 bg-borderline rounded-xl"></div>)}
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 h-80 bg-slate-200 rounded-xl"></div>
-        <div className="h-80 bg-slate-200 rounded-xl"></div>
+        <div className="lg:col-span-2 h-80 bg-borderline rounded-xl"></div>
+        <div className="h-80 bg-borderline rounded-xl"></div>
       </div>
     </div>;
   }
@@ -78,7 +78,7 @@ const Dashboard = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-end mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 mb-1">Operational Overview</h1>
+          <h1 className="text-2xl font-bold text-white mb-1">Operational Overview</h1>
           <p className="text-sm text-muted">Real-time logistics and dispatch monitoring</p>
         </div>
         <div className="flex items-center gap-4">
@@ -87,10 +87,10 @@ const Dashboard = () => {
             <div className="relative">
               <input type="checkbox" className="sr-only" checked={isLiveMode} onChange={(e) => setIsLiveMode(e.target.checked)} />
               <div className={`block w-10 h-6 rounded-full transition-colors ${isLiveMode ? 'bg-primary' : 'bg-slate-700'}`}></div>
-              <div className={`absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform ${isLiveMode ? 'translate-x-4' : ''}`}></div>
+              <div className={`absolute left-1 top-1 bg-card w-4 h-4 rounded-full transition-transform ${isLiveMode ? 'translate-x-4' : ''}`}></div>
             </div>
           </label>
-          <div className="flex items-center gap-2 text-sm text-slate-700 bg-white px-3 py-1.5 rounded-md border border-slate-200 font-medium shadow-sm">
+          <div className="flex items-center gap-2 text-sm text-muted bg-card px-3 py-1.5 rounded-md border border-borderline font-medium shadow-sm">
             <div className={`w-2 h-2 rounded-full ${isLiveMode ? 'bg-success animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]' : 'bg-slate-400'}`}></div>
             System Status: {isLiveMode ? 'Live' : 'Optimal'}
           </div>
@@ -111,30 +111,30 @@ const Dashboard = () => {
           className="lg:col-span-2 card"
         >
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-lg font-semibold text-slate-900">Delivery Trends (Last 7 Days)</h2>
-            <select className="bg-slate-50 border border-slate-200 text-sm rounded-xl px-3 py-1.5 outline-none focus:border-primary/50 text-slate-900">
+            <h2 className="text-lg font-semibold text-white">Delivery Trends (Last 7 Days)</h2>
+            <select className="bg-[#0B0F19] border border-borderline text-sm rounded-xl px-3 py-1.5 outline-none focus:border-primary/50 text-white">
               <option>Completed</option>
               <option>Delayed</option>
             </select>
           </div>
-          <div className="h-[300px] w-full">
+          <div className="h-[300px] w-full" style={{ minWidth: 0, minHeight: 0 }}>
             {data?.analytics?.deliveryTrends?.length > 0 ? (
-              <ResponsiveContainer width="100%" height="100%">
+              <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                 <AreaChart data={data.analytics.deliveryTrends} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <defs>
                     <linearGradient id="colorCount" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.4}/>
-                      <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0}/>
+                      <stop offset="5%" stopColor="#FF6B00" stopOpacity={0.4}/>
+                      <stop offset="95%" stopColor="#FF6B00" stopOpacity={0}/>
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
-                  <XAxis dataKey="_id" stroke="#64748b" fontSize={12} tickLine={false} axisLine={false} />
-                  <YAxis stroke="#64748b" fontSize={12} tickLine={false} axisLine={false} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" vertical={false} />
+                  <XAxis dataKey="_id" stroke="#9ca3af" fontSize={12} tickLine={false} axisLine={false} />
+                  <YAxis stroke="#9ca3af" fontSize={12} tickLine={false} axisLine={false} />
                   <Tooltip 
-                    contentStyle={{ backgroundColor: '#ffffff', borderColor: '#e2e8f0', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)' }}
-                    itemStyle={{ color: '#0f172a' }}
+                    contentStyle={{ backgroundColor: '#111827', borderColor: '#1f2937', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.4)' }}
+                    itemStyle={{ color: '#ffffff' }}
                   />
-                  <Area type="monotone" dataKey="count" stroke="#8b5cf6" strokeWidth={3} fillOpacity={1} fill="url(#colorCount)" />
+                  <Area type="monotone" dataKey="count" stroke="#FF6B00" strokeWidth={3} fillOpacity={1} fill="url(#colorCount)" />
                 </AreaChart>
               </ResponsiveContainer>
             ) : (
@@ -148,7 +148,7 @@ const Dashboard = () => {
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}
           className="card flex flex-col"
         >
-          <h2 className="text-lg font-semibold text-slate-900 mb-6 flex items-center gap-2">
+          <h2 className="text-lg font-semibold text-white mb-6 flex items-center gap-2">
             <Activity size={18} className="text-accent" />
             Live Activity Feed
           </h2>
@@ -156,16 +156,16 @@ const Dashboard = () => {
             {data?.recentActivities?.length > 0 ? data.recentActivities.map((activity, idx) => (
               <div key={idx} className="flex gap-4 relative group">
                 {idx !== data.recentActivities.length - 1 && (
-                  <div className="absolute left-[11px] top-7 bottom-[-16px] w-px bg-slate-200 group-hover:bg-primary/30 transition-colors"></div>
+                  <div className="absolute left-[11px] top-7 bottom-[-16px] w-px bg-borderline group-hover:bg-primary/30 transition-colors"></div>
                 )}
-                <div className="w-6 h-6 rounded-full bg-card border-2 border-slate-200 flex-shrink-0 mt-0.5 flex items-center justify-center z-10 shadow-sm group-hover:border-primary/50 transition-colors">
+                <div className="w-6 h-6 rounded-full bg-card border-2 border-borderline flex-shrink-0 mt-0.5 flex items-center justify-center z-10 shadow-sm group-hover:border-primary/50 transition-colors">
                   <div className={`w-2 h-2 rounded-full ${activity.action.includes('Critical') ? 'bg-danger shadow-[0_0_8px_rgba(244,63,94,0.8)]' : 'bg-primary shadow-[0_0_8px_rgba(139,92,246,0.8)]'}`}></div>
                 </div>
                 <div>
-                  <p className="text-sm text-slate-900 mb-0.5">{activity.action}</p>
+                  <p className="text-sm text-white mb-0.5">{activity.action}</p>
                   <div className="flex gap-2 text-xs text-muted">
                     <span>{new Date(activity.timestamp).toLocaleString()}</span>
-                    <span>â€¢</span>
+                    <span>Ã¢â‚¬Â¢</span>
                     <span>{activity.performedBy?.name || 'System'}</span>
                   </div>
                 </div>
